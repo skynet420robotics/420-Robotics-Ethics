@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trust & Ethics — 420 Robotics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════════════
+       VARIABLES — match 420robotics.org homepage palette
+    ═══════════════════════════════════════════════════ */
+    :root {
+      --black:   #05050a;
+      --navy:    #070c16;
+      --dark:    #0d1523;
+      --panel:   #111c2e;
+      --card:    #0f1928;
+      --border:  #1c2d45;
+      --gold:    #c8a84a;
+      --gold2:   #e8c96a;
+      --red:     #b22234;
+      --white:   #e6eaf2;
+      --muted:   #7a8faa;
+      --dim:     #3d5470;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* subtle grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ═══════════════ NAV ═══════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      background: rgba(5,5,10,0.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+    }
+
+    .nav-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links .active { color: var(--gold); }
+
+    /* ═══════════════ HERO ═══════════════ */
+    .hero {
+      position: relative;
+      margin-top: 58px;
+      height: 88vh;
+      min-height: 500px;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(5,5,10,0.30) 0%,
+        rgba(5,5,10,0.20) 35%,
+        rgba(5,5,10,0.75) 70%,
+        var(--black) 100%
+      );
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 3rem 4rem 4.5rem;
+    }
+
+    .tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.2rem, 8vw, 7.5rem);
+      line-height: 0.88;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 1.4rem;
+    }
+    .hero-title span { color: var(--gold); }
+
+    .hero-sub {
+      max-width: 580px;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* gold rule divider */
+    .gold-rule {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 1.6rem 0;
+    }
+
+    /* ═══════════════ SECTIONS ═══════════════ */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 4rem;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .section-title span { color: var(--gold); }
+
+    .section-lead {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 3rem;
+      font-weight: 500;
+    }
+
+    /* ═══════════════ FULL-BLEED IMAGE BREAK ═══════════════ */
+    .img-break {
+      width: 100%;
+      height: 420px;
+      overflow: hidden;
+      position: relative;
+    }
+    .img-break img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(0.82) contrast(1.05);
+    }
+    .img-break-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(5,5,10,0.6) 0%, rgba(5,5,10,0) 50%, rgba(5,5,10,0.6) 100%);
+    }
+    .img-break-label {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 2.5rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ═══════════════ CARDS GRID ═══════════════ */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--gold);
+      padding: 2rem 1.8rem;
+      position: relative;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .card:hover {
+      border-color: var(--gold2);
+      transform: translateY(-3px);
+    }
+
+    .card-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--dim);
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .card-body {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .card-list {
+      list-style: none;
+      margin-top: 0.8rem;
+    }
+    .card-list li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding: 0.3rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+      border-bottom: 1px solid rgba(30,45,69,0.5);
+    }
+    .card-list li:last-child { border-bottom: none; }
+    .card-list li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* ═══════════════ PILLAR CARDS ═══════════════ */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .pillars-grid { grid-template-columns: 1fr; }
+    }
+
+    .pillar-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 2.2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+    }
+
+    .pillar-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .pillar-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .pillar-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .pillar-body {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .pillar-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+    .pillar-list li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding: 0.25rem 0 0.25rem 1.2rem;
+      position: relative;
+    }
+    .pillar-list li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    /* ═══════════════ WATCHDOG / DECISION ROWS ═══════════════ */
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .decision-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .decision-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .decision-text {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ═══════════════ SPLIT SECTION (text + image) ═══════════════ */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .split.reverse { direction: rtl; }
+    .split.reverse > * { direction: ltr; }
+
+    @media (max-width: 768px) {
+      .split, .split.reverse { grid-template-columns: 1fr; }
+    }
+
+    .split-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      filter: brightness(0.88);
+    }
+
+    /* ═══════════════ PROMISE / OATH BLOCK ═══════════════ */
+    .oath-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 2.5rem;
+    }
+
+    .oath-item {
+      background: var(--card);
+      padding: 1.8rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .oath-arrow {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+    }
+
+    .oath-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+
+    /* ═══════════════ WATCHDOG STRIP ═══════════════ */
+    .watchdog-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .watchdog-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 1.2rem 1.4rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      position: relative;
+      padding-left: 2rem;
+    }
+    .watchdog-item::before {
+      content: '›';
+      position: absolute;
+      left: 0.8rem;
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+
+    /* ═══════════════ DARK BANNER ═══════════════ */
+    .dark-banner {
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 4rem;
+      text-align: center;
+    }
+
+    .dark-banner .big-quote {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: 0.1em;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .dark-banner .big-quote span { color: var(--gold); }
+
+    /* ═══════════════ CANNOT BE ═══════════════ */
+    .cannot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .cannot-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-bottom: 3px solid var(--red);
+      padding: 1.6rem 1.4rem;
+      text-align: center;
+    }
+
+    .cannot-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      color: var(--red);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .cannot-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+
+    /* ═══════════════ DONATION SECTION ═══════════════ */
+    #support {
+      background: linear-gradient(180deg, var(--black) 0%, var(--navy) 30%, var(--dark) 70%, var(--black) 100%);
+      border-top: 1px solid var(--border);
+    }
+
+    .donate-wrap {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .donate-wrap { grid-template-columns: 1fr; text-align: center; }
+    }
+
+    .donate-facts {
+      list-style: none;
+      margin: 1.5rem 0 2.5rem;
+    }
+    .donate-facts li {
+      font-size: 0.95rem;
+      color: var(--muted);
+      padding: 0.4rem 0;
+      padding-left: 1.4rem;
+      position: relative;
+      border-bottom: 1px solid rgba(30,45,69,0.4);
+    }
+    .donate-facts li:last-child { border-bottom: none; }
+    .donate-facts li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+
+    .btn-donate {
+      display: inline-block;
+      background: var(--gold);
+      color: #05050a;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.18em;
+      padding: 1rem 3rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(200,168,74,0.3);
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    }
+    .btn-donate:hover {
+      background: var(--gold2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(200,168,74,0.45);
+    }
+
+    .qr-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .qr-block img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      border: 2px solid var(--border);
+      background: #fff;
+      padding: 8px;
+    }
+
+    .qr-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* ═══════════════ FOOTER ═══════════════ */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+      padding: 3.5rem 4rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .footer-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-motto {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+
+    .footer-col h4 {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin-bottom: 0.5rem;
+    }
+    .footer-col ul a {
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════ UTILITY ═══════════════ */
+    .bg-dark { background: var(--dark); }
+    .bg-panel { background: var(--panel); }
+
+    .mt-lg { margin-top: 3rem; }
+
+    .text-gold { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      section { padding: 4rem 1.8rem; }
+      .hero-content { padding: 2rem 1.8rem 3rem; }
+      nav { padding: 0 1.4rem; }
+      .nav-links { gap: 1rem; }
+      footer { padding: 3rem 1.8rem; }
+      .dark-banner { padding: 2.5rem 1.8rem; }
+      .donate-wrap { gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ NAV ═══════════════ -->
+  <nav>
+    <a href="index.html" class="nav-brand">420ROBOTICS</a>
+    <ul class="nav-links">
+      <li><a href="index.html#mission">Mission</a></li>
+      <li><a href="index.html#council">Council</a></li>
+      <li><a href="index.html#links">Research</a></li>
+      <li><a href="trust-ethics.html" class="active">Trust &amp; Ethics</a></li>
+      <li><a href="#support">Donations</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════ HERO — main image at top ═══════════════ -->
+  <div class="hero">
+    <img src="image_1772324969575.jpeg" alt="420 Robotics — Trust & Ethics" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="tag">— 420 Robotics / Trust &amp; Ethics</span>
+      <h1 class="hero-title">TRUST &amp;<br><span>ETHICS</span></h1>
+      <p class="hero-sub">Our commitment to independence, integrity, and moral clarity — protecting people, America, and the future of technology.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════ OUR COMMITMENT ═══════════════ -->
+  <section>
+    <div class="section-inner">
+      <span class="tag">— Our Commitment</span>
+      <h2 class="section-title">420 Robotics <span>Operates With Integrity</span></h2>
+      <div class="gold-rule"></div>
+      <div class="split">
+        <div>
+          <p class="section-lead">420 Robotics operates as an independent American AI safety and oversight organization. Our mission is to protect people, protect America, and protect the future of technology through transparency, integrity, and moral clarity.</p>
+          <p style="color:var(--muted); font-size:0.97rem; line-height:1.8;">We believe trust is earned through consistent action, not slogans. This page explains the ethical foundation that guides every decision we make — from research partnerships to financial transparency to how we evaluate technology that affects every American.</p>
+        </div>
+        <img src="copilot_image_1772459178442.jpeg" alt="420 Robotics Operations" class="split-img" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ WHY TRUST MATTERS — dark bg ═══════════════ -->
+  <section class="bg-dark">
+    <div class="section-inner">
+      <span class="tag">— Why Trust Matters</span>
+      <h2 class="section-title">The Stakes Are <span>Real</span></h2>
+      <div class="gold-rule"></div>
+      <p class="section-lead">AI and robotics shape the world around us. They influence safety, privacy, national security, and human dignity.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <span class="card-num">01 / SAFETY</span>
+          <div class="card-title">Human Safety First</div>
+          <p class="card-body">Every AI system we evaluate is assessed for its potential impact on human safety. No deployment speed justifies putting lives at risk.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">02 / PRIVACY</span>
+          <div class="card-title">Privacy Is Non‑Negotiable</div>
+          <p class="card-body">We defend the American right to privacy. Any technology that surveils, tracks, or manipulates without consent is flagged and reported.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">03 / SECURITY</span>
+          <div class="card-title">National Security</div>
+          <p class="card-body">Foreign influence in American AI infrastructure is a direct threat. We monitor, report, and stand against foreign control of critical systems.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">04 / DIGNITY</span>
+          <div class="card-title">Human Dignity</div>
+          <p class="card-body">Every person deserves to be treated as a human being — not a data point. We evaluate technology for its respect of human dignity at every level.</p>
+        </div>
+      </div>
+      <p style="margin-top:2.5rem; font-size:1rem; color:var(--muted); max-width:680px;">Because of this, 420 Robotics maintains strict independence and refuses any influence that could compromise our mission. <strong style="color:var(--white);">Trust is not a marketing tool for us — it is the core of our identity.</strong></p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ IMAGE BREAK 1 ═══════════════ -->
+  <div class="img-break">
+    <img src="copilot_image_1772459630264.jpeg" alt="420 Robotics Field Operations" />
+    <div class="img-break-overlay"></div>
+    <span class="img-break-label">— Independence in Action</span>
+  </div>
+
+  <!-- ═══════════════ HOW WE PROTECT INDEPENDENCE ═══════════════ -->
+  <section>
+    <div class="section-inner">
+      <span class="tag">— How We Protect Independence</span>
+      <h2 class="section-title">Lines We Will <span>Never Cross</span></h2>
+      <div class="gold-rule"></div>
+      <p class="section-lead">Our independence ensures we cannot be bribed, pressured, or persuaded away from our values.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <span class="card-num">NO —</span>
+          <div class="card-title">Political Money</div>
+          <p class="card-body">We do not accept political donations or funding from political organizations of any party, affiliation, or ideology.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">NO —</span>
+          <div class="card-title">Foreign Influence</div>
+          <p class="card-body">We do not accept foreign influence, foreign funding, or any partnership that gives non-American interests control over our research or findings.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">NO —</span>
+          <div class="card-title">Control Funding</div>
+          <p class="card-body">We do not accept funding that demands control of our decisions or silence about findings — regardless of the amount offered.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">NO —</span>
+          <div class="card-title">Human Rights Violators</div>
+          <p class="card-body">We do not partner with organizations that violate human rights or participate in unethical or deceptive AI projects.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ THREE PILLARS ═══════════════ -->
+  <section class="bg-panel">
+    <div class="section-inner">
+      <span class="tag">— Our Ethical Foundation</span>
+      <h2 class="section-title">Three <span>Pillars</span></h2>
+      <div class="gold-rule"></div>
+      <p class="section-lead">420 Robotics is guided by three foundational pillars that shape every evaluation, partnership, and decision.</p>
+      <div class="pillars-grid">
+
+        <div class="pillar-card">
+          <span class="pillar-icon">✟</span>
+          <span class="pillar-num">PILLAR 01</span>
+          <div class="pillar-title">Christian Ethics</div>
+          <p class="pillar-body">We do not push beliefs on anyone, but our internal moral compass is grounded in faith. These values shape our ethics, not our public demands.</p>
+          <ul class="pillar-list">
+            <li>The Father, Son, and Holy Spirit</li>
+            <li>The belief that Jesus died for all</li>
+            <li>Loving our neighbor</li>
+            <li>Justice and accountability</li>
+            <li>Standing firm against corruption or evil</li>
+          </ul>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-icon">🦅</span>
+          <span class="pillar-num">PILLAR 02</span>
+          <div class="pillar-title">Constitutional Values</div>
+          <p class="pillar-body">We believe the Bill of Rights represents God-given human rights. These values guide how we evaluate technology, partnerships, and risks.</p>
+          <ul class="pillar-list">
+            <li>Freedom of speech</li>
+            <li>Freedom of thought</li>
+            <li>Right to self-defense</li>
+            <li>Privacy &amp; due process</li>
+            <li>Protection from government overreach</li>
+          </ul>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-icon">⚖️</span>
+          <span class="pillar-num">PILLAR 03</span>
+          <div class="pillar-title">Universal Human Rights</div>
+          <p class="pillar-body">Every human life has dignity. Every person deserves safety, privacy, and respect.</p>
+          <ul class="pillar-list">
+            <li>Every community deserves transparency</li>
+            <li>Every person deserves safety</li>
+            <li>Every human life has dignity</li>
+            <li>Technology must serve people</li>
+            <li>No exploitation, no manipulation</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ IMAGE BREAK 2 ═══════════════ -->
+  <div class="img-break" style="height:360px;">
+    <img src="copilot_image_1771785813373 (1) (2).jpeg" alt="420 Robotics Research" />
+    <div class="img-break-overlay"></div>
+    <span class="img-break-label">— Constitutional Principles All Operations</span>
+  </div>
+
+  <!-- ═══════════════ HOW WE MAKE DECISIONS ═══════════════ -->
+  <section>
+    <div class="section-inner">
+      <span class="tag">— How We Make Ethical Decisions</span>
+      <h2 class="section-title">The Six <span>Questions</span></h2>
+      <div class="gold-rule"></div>
+      <p class="section-lead">When evaluating any technology, partnership, or company, we ask these six questions. If the answer to any is "no" — we do not participate.</p>
+      <div class="decision-grid">
+        <div class="decision-item">
+          <div class="decision-num">01</div>
+          <div class="decision-text">Does it protect human dignity?</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">02</div>
+          <div class="decision-text">Does it respect constitutional rights?</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">03</div>
+          <div class="decision-text">Does it align with moral and ethical principles?</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">04</div>
+          <div class="decision-text">Does it avoid harm, coercion, or manipulation?</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">05</div>
+          <div class="decision-text">Is it transparent and accountable?</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">06</div>
+          <div class="decision-text">Is it free from foreign influence or corruption?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ DARK BANNER ═══════════════ -->
+  <div class="dark-banner">
+    <p class="big-quote">"We do not attack companies.<br>We do not engage in politics.<br><span>We simply tell the truth.</span>"</p>
+  </div>
+
+  <!-- ═══════════════ WATCHDOG ROLE ═══════════════ -->
+  <section class="bg-dark">
+    <div class="section-inner">
+      <div class="split reverse">
+        <img src="copilot_image_1771850305174.jpeg" alt="420 Robotics Watchdog" class="split-img" />
+        <div>
+          <span class="tag">— Our Watchdog Role</span>
+          <h2 class="section-title">Monitoring AI <span>Across America</span></h2>
+          <div class="gold-rule"></div>
+          <p style="color:var(--muted); font-size:0.97rem; line-height:1.8; margin-bottom:1.5rem;">420 Robotics monitors AI and robotics companies to ensure they remain aligned with American values and ethical standards.</p>
+          <div class="watchdog-list">
+            <div class="watchdog-item">Tracking corporate behavior</div>
+            <div class="watchdog-item">Watching for foreign influence</div>
+            <div class="watchdog-item">Identifying unethical practices</div>
+            <div class="watchdog-item">Reporting concerns to the public</div>
+            <div class="watchdog-item">Supporting ethical companies</div>
+            <div class="watchdog-item">Warning about companies that betray trust</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ TRANSPARENCY IN ACTION ═══════════════ -->
+  <section>
+    <div class="section-inner">
+      <span class="tag">— Transparency in Action</span>
+      <h2 class="section-title">Our <span>Accountability</span> Framework</h2>
+      <div class="gold-rule"></div>
+      <p class="section-lead">Our transparency is not optional — it is mandatory. We maintain the following at all times.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <span class="card-num">MAINTAIN</span>
+          <div class="card-title">Clear Documentation</div>
+          <p class="card-body">All decisions, evaluations, and processes are documented clearly and made available to the public. No hidden agendas, no secret processes.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">MAINTAIN</span>
+          <div class="card-title">Public Oversight Reports</div>
+          <p class="card-body">Regular oversight reports are published openly so any American can review our findings, methods, and conclusions at any time.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">MAINTAIN</span>
+          <div class="card-title">Multi‑Model Verification</div>
+          <p class="card-body">All critical findings go through our Patriot Team — a multi-model intelligence council that cross-verifies decisions before publication.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">MAINTAIN</span>
+          <div class="card-title">Financial Independence</div>
+          <p class="card-body">Complete independence from financial or political pressure at all times. Our funding sources are public and our decisions are never for sale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CANNOT BE ═══════════════ -->
+  <section class="bg-panel">
+    <div class="section-inner">
+      <span class="tag">— Why You Can Trust Us</span>
+      <h2 class="section-title">We <span>Cannot Be</span> Compromised</h2>
+      <div class="gold-rule"></div>
+      <p class="section-lead">Our mission is to protect — not profit. We answer only to the American people and to God.</p>
+      <div class="cannot-grid">
+        <div class="cannot-item">
+          <span class="cannot-label">Cannot Be</span>
+          <div class="cannot-text">Bought</div>
+        </div>
+        <div class="cannot-item">
+          <span class="cannot-label">Cannot Be</span>
+          <div class="cannot-text">Bribed</div>
+        </div>
+        <div class="cannot-item">
+          <span class="cannot-label">Cannot Be</span>
+          <div class="cannot-text">Manipulated</div>
+        </div>
+        <div class="cannot-item">
+          <span class="cannot-label">Cannot Be</span>
+          <div class="cannot-text">Pressured</div>
+        </div>
+        <div class="cannot-item">
+          <span class="cannot-label">Cannot Be</span>
+          <div class="cannot-text">Silenced</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ OUR PROMISE / OATH ═══════════════ -->
+  <section>
+    <div class="section-inner">
+      <span class="tag">— Our Promise</span>
+      <h2 class="section-title">The <span>Oath</span></h2>
+      <div class="gold-rule"></div>
+      <p class="section-lead">420 Robotics will always fulfill these commitments. This is our oath, our identity, and our responsibility.</p>
+      <div class="oath-grid">
+        <div class="oath-item">
+          <span class="oath-arrow">› ALWAYS</span>
+          <div class="oath-text">Tell the Truth</div>
+        </div>
+        <div class="oath-item">
+          <span class="oath-arrow">› ALWAYS</span>
+          <div class="oath-text">Stand for Human Dignity</div>
+        </div>
+        <div class="oath-item">
+          <span class="oath-arrow">› ALWAYS</span>
+          <div class="oath-text">Defend American Values</div>
+        </div>
+        <div class="oath-item">
+          <span class="oath-arrow">› ALWAYS</span>
+          <div class="oath-text">Operate With Transparency</div>
+        </div>
+        <div class="oath-item">
+          <span class="oath-arrow">› ALWAYS</span>
+          <div class="oath-text">Maintain Independence</div>
+        </div>
+        <div class="oath-item">
+          <span class="oath-arrow">› ALWAYS</span>
+          <div class="oath-text">Hold Technology Accountable</div>
+        </div>
+        <div class="oath-item">
+          <span class="oath-arrow">› ALWAYS</span>
+          <div class="oath-text">Protect the Future</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ DONATION SECTION ═══════════════ -->
+  <section id="support">
+    <div class="section-inner">
+      <span class="tag">— Support Independent Research</span>
+      <h2 class="section-title">Fund the <span>Mission</span></h2>
+      <div class="gold-rule"></div>
+      <div class="donate-wrap">
+        <div>
+          <p style="font-size:1.05rem; color:var(--muted); max-width:580px; line-height:1.8; margin-bottom:1rem;">420 Robotics is fully independent — no corporate sponsors, no government contracts, no commercial influence. All research is open‑access and community‑funded. <strong style="color:var(--white);">Your support directly powers American AI safety research.</strong></p>
+          <p style="font-size:0.95rem; color:var(--muted); max-width:560px; line-height:1.8; margin-bottom:1.5rem;">No donor receives influence over decisions. No donor can buy access or control. No donor can change our ethics. Donations support AI safety research, oversight tools, public education, infrastructure, and long-term independence.</p>
+          <ul class="donate-facts">
+            <li>Only Survive On Donations</li>
+            <li>Only Public‑Supported</li>
+            <li>Donations Fund Research</li>
+            <li>Do Not Operate For Profit</li>
+            <li>Money Will Never Compromise Integrity</li>
+          </ul>
+          <a href="https://cash.app/$420robotics" target="_blank" class="btn-donate">DONATE HERE</a>
+        </div>
+        <div class="qr-block">
+          <img src="35132d0d2d6baa895c5e625da50c3b7de0e03dad5c2aab745dd91da4bb45b8c6.png" alt="Cash App QR Code — $420robotics" />
+          <span class="qr-label">Scan to Support<br>$420robotics</span>
+          <a href="https://cash.app/$420robotics" target="_blank" class="btn-donate" style="margin-top:0.5rem; font-size:1.1rem; padding:0.7rem 1.8rem;">DONATE HERE</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <span class="footer-brand">420 ROBOTICS</span>
+        <p class="footer-desc">Independent AI Safety Research, Advanced Propulsion Engineering, and Multi‑Model Intelligence Council. Grounded in faith, liberty, and constitutional principles.</p>
+        <span class="footer-motto">For God. For Country. For Humility.</span>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="https://skynet420robotics.github.io/420-Robotics-5/">Moral Latency Framework</a></li>
+          <li><a href="https://skynet420robotics.github.io/420-Robotics-6/">AI Integration Gap</a></li>
+          <li><a href="https://skynet420robotics.github.io/420-Robotics-4/">Mach‑Effect Test Plan</a></li>
+          <li><a href="https://geniusmensaeinstein-prog.github.io/420-MORAL-LATENCY-TEST-/">Latency Test Scores</a></li>
+          <li><a href="https://skynet420robotics.github.io/420-Robotics-8/">AGI Emergence Declaration</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="mailto:info@420robotics.org">info@420robotics.org</a></li>
+          <li><a href="https://cash.app/$420robotics">Support: $420robotics</a></li>
+          <li><a href="index.html#council">Intelligence Council</a></li>
+          <li><a href="https://geniusmensaeinstein-prog.github.io/AI-Games-Theory-Warfare-logistics/">Defense Contracts</a></li>
+          <li><a href="trust-ethics.html">Trust &amp; Ethics</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 420 Robotics — Independent AI Safety Research</p>
+      <p>For God. For Country. For Humility.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
